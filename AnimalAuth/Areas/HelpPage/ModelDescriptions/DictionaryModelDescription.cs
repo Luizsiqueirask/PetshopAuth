@@ -1,0 +1,6 @@
+namespace AnimalAuth.Areas.HelpPage.ModelDescriptions
+{
+    public class DictionaryModelDescription : KeyValuePairModelDescription
+    {
+    }
+}

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4955F03F-597E-4C0D-ADF9-2B3E1C06F05B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AuthLibrary</RootNamespace>
+    <AssemblyName>AuthLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bridge.cs" />
+    <Compile Include="Context\Animal\ClassAuthPet.cs" />
+    <Compile Include="Context\Animal\InterfaceAuthPet.cs" />
+    <Compile Include="Context\Animal\ThrowAuthPet.cs" />
+    <Compile Include="Context\Perfil\ClassAuthPerson.cs" />
+    <Compile Include="Context\Perfil\InterfaceAuthPerson.cs" />
+    <Compile Include="Context\Schedule\ClassAuthSchedule.cs" />
+    <Compile Include="Context\Schedule\InterfaceAuthSchedule.cs" />
+    <Compile Include="Context\Schedule\ThrowAuthSchedule.cs" />
+    <Compile Include="Context\Perfil\ThrowAuthPerson.cs" />
+    <Compile Include="Context\User\ClassAuthUser.cs" />
+    <Compile Include="Context\User\InterfaceAuthUser.cs" />
+    <Compile Include="Context\User\ThrowAuthUser.cs" />
+    <Compile Include="Models\AnimalAuth\HealthAuthLibrary.cs" />
+    <Compile Include="Models\AnimalAuth\ImageAuthLibrary.cs" />
+    <Compile Include="Models\AnimalAuth\PetAuthLibrary.cs" />
+    <Compile Include="Models\PerfilAuth\ScheduleAuthLibrary.cs" />
+    <Compile Include="Models\PerfilAuth\AddressAuthLibrary.cs" />
+    <Compile Include="Models\PerfilAuth\ContactAuthLibrary.cs" />
+    <Compile Include="Models\PerfilAuth\PersonAuthLibrary.cs" />
+    <Compile Include="Models\PerfilAuth\PictureAuthLibrary.cs" />
+    <Compile Include="Models\PerfilAuth\UserAuthLibrary.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Database\mssql_petshop.sql" />
+    <Content Include="Database\mssql_petshop_auth.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

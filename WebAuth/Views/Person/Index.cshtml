@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebAuth.Models.Perfil.Person>
+
+@{
+    ViewBag.Title = "View";
+}
+<h3 class="text-center p-5">All People</h3>
+
+<p class="p-5">
+    @Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "btn btn-md btn-gradient btn-success text-white shadow-md rounded-5" })
+</p>
+
+<div class="card shadow-lg rounded-5">
+
+    @foreach (var item in Model)
+    {
+        <div class="container-fluid">
+            <div class="card-body m-4 ">
+                <div class="card-header shadow-sm bg-white">
+                    <h3 class="h3 text-center m-4">@Html.DisplayFor(model => item.FirstName)</h3>
+                    <hr />
+                    <div class="card-body">
+                        <br />
+                        <figure class="card-img align-items-center mb-3 container-sm">
+                            <img src="@Url.Content(item.Picture.Tag)" alt="@Html.DisplayFor(model => item.Picture.Tag)" style="width: 360px; height: 270px;" class="img-thumbnail figure-img shadow-sm rounded-3 rounded-pill mb-5" />
+                        </figure>
+                        <div>
+                            <h5 class="h-50 mb-3 text-center">Pessoa</h5>
+                            <div class="card-body row m-3">
+                                <div class="col-md-6">
+                                    <p>
+                                        <b>@Html.DisplayNameFor(model => model.FirstName)</b>
+                                        @Html.DisplayFor(model => item.FirstName)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.LastName):</b>
+                                        @Html.DisplayFor(model => item.LastName)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Birthday):</b>
+                                        @Html.DisplayFor(model => item.Birthday)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Age):</b>
+                                        @Html.DisplayFor(model => item.Age)
+                                        <b>@Html.DisplayNameFor(model => model.Genre):</b>
+                                        @Html.DisplayFor(model => item.Genre)
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>
+                                        <b>@Html.DisplayNameFor(model => model.Contact.Email):</b>
+                                        @Html.DisplayFor(model => item.Contact.Email)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Contact.Mobile):</b>
+                                        @Html.DisplayFor(model => item.Contact.Mobile)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Address.Country):</b>
+                                        @Html.DisplayFor(model => item.Address.Country)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded">
+                            <div class="card-footer bg-gradient bg-light text-center rounded-pill">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-md btn-gradient btn-warning text-white rounded-pill" }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-md btn-gradient btn-primary text-white rounded-pill" }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-md btn-gradient btn-danger text-white rounded-pill" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

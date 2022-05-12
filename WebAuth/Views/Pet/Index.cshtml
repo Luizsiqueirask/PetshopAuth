@@ -1,0 +1,84 @@
+﻿@model IEnumerable<WebAuth.Models.Animal.PeoplePets>
+
+<div class="container-fluid">
+    <h3 class="text-center">All Pets</h3>
+    <p class="p-2">
+        @Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "btn btn-sm btn-success text-white" })
+    </p>
+    <hr />
+    @foreach (var item in Model)
+    {
+        <div class="">
+            <div class="card bg-info bg-opacity-100 m-4 shadow-lg rounded-5">
+                <div class="card-header shadow-sm bg-white">
+                    <h2 class="h3 text-center m-4">@Html.DisplayFor(model => item.Pets.Name)</h2>
+                    <hr />
+                    <div class="card-body">
+                        <br />
+                        <figure class="card-img align-items-center mb-3 container-sm figure-img rounded-circle">
+                            <img src="@Url.Content(item.Pets.Image.Tag)" alt="@Html.DisplayFor(model => item.Pets.Image.Tag)" style="width: 360px; height: 270px;" class="img-thumbnail figure-img shadow-sm rounded-3 rounded-pill mb-5" />
+                        </figure>
+                        <div>
+                            <h5 class="h-50 mb-3 text-center">Animal de Instimação</h5>
+                            <div class="card-body row m-3">
+                                <div class="col-md-6">
+                                    <p>
+                                        <b>@Html.DisplayNameFor(model => model.Pets.Name)</b>
+                                        @Html.DisplayFor(model => item.Pets.Name)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Pets.Birthday):</b>
+                                        @Html.DisplayFor(model => item.Pets.Birthday)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Pets.Genre):</b>
+                                        @Html.DisplayFor(model => item.Pets.Genre)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Pets.Age):</b>
+                                        @Html.DisplayFor(model => item.Pets.Age)
+                                        <b>@Html.DisplayNameFor(model => model.Pets.Genre):</b>
+                                        @Html.DisplayFor(model => item.Pets.Genre)
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>
+                                        <b>@Html.DisplayNameFor(model => model.Pets.Health.Status):</b>
+                                        @Html.DisplayFor(model => item.Pets.Health.Status)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.People.FirstName):</b>
+                                        @Html.DisplayFor(model => item.People.FirstName) @Html.DisplayFor(model => item.People.LastName)
+                                        <br />
+                                        <h3 class="text-center">Agendamento</h3>
+                                        <b>@Html.DisplayNameFor(model => model.Pets.Schedule.Services):</b>
+                                        @Html.DisplayFor(model => item.Pets.Schedule.Services)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Pets.Schedule.Date):</b>
+                                        @Html.DisplayFor(model => item.Pets.Schedule.Date)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Pets.Schedule.Time):</b>
+                                        @Html.DisplayFor(model => item.Pets.Schedule.Time)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Pets.Schedule.Places.City):</b>
+                                        @Html.DisplayFor(model => item.Pets.Schedule.Places.City)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Pets.Schedule.Places.Street):</b>
+                                        @Html.DisplayFor(model => item.Pets.Schedule.Places.Street)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Pets.Schedule.Places.Number):</b>
+                                        @Html.DisplayFor(model => item.Pets.Schedule.Places.Number)
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded">
+                            <div class="card-footer bg-gradient bg-light text-center rounded-pill">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Pets.Id }, new { @class = "btn btn-md btn-gradient btn-warning text-white rounded-pill" }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Pets.Id }, new { @class = "btn btn-md btn-gradient btn-primary text-white rounded-pill" }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Pets.Id }, new { @class = "btn btn-md btn-gradient btn-danger text-white rounded-pill" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
