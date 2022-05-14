@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AnimalAuth.Casting;
+using AnimalAuth.Models.AnimalAuth;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -8,38 +10,38 @@ namespace Animal.Controllers
 {
     public class PetAuthController : ApiController
     {
-        private readonly PetCast petCast;
+        private readonly PetAuthCast petAuthCast;
 
         public PetAuthController()
         {
-            petCast = new PetCast();
+            petAuthCast = new PetAuthCast();
         }
 
         // GET: api/Pet
-        public IEnumerable<Pet> Get()
+        public IEnumerable<PetAuth> Get()
         {
-            return petCast.List();
+            return petAuthCast.List();
         }
 
         // GET: api/Pet/5
-        public Pet Get(int? Id)
+        public PetAuth Get(int? Id)
         {
-            return petCast.Get(Id);
+            return petAuthCast.Get(Id);
         }
 
         // POST: api/Pet
-        public string Post(Pet pet)
+        public string Post(PetAuth petAuth)
         {
             try
             {
-                if (pet != null)
+                if (petAuth != null)
                 {
                     var httpResponseOk = new HttpResponseMessage(HttpStatusCode.OK)
                     {
                         Content = new StringContent("Sucesso"),
                         RequestMessage = new HttpRequestMessage(),
                     };
-                    petCast.Post(pet);
+                    petAuthCast.Post(petAuth);
                     return httpResponseOk.ToString();
                 }
             }
@@ -57,15 +59,15 @@ namespace Animal.Controllers
         }
 
         // PUT: api/Pet/5
-        public void Put(Pet pet, int? Id)
+        public void Put(PetAuth petAuth, int? Id)
         {
-            petCast.Put(pet, Id);
+            petAuthCast.Put(petAuth, Id);
         }
 
         // DELETE: api/Pet/5
         public void Delete(int? Id)
         {
-            petCast.Delete(Id);
+            petAuthCast.Delete(Id);
         }
     }
 }

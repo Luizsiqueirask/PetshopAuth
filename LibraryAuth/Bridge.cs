@@ -1,4 +1,7 @@
-﻿namespace LibraryAuth
+﻿using System.Configuration;
+using System.Web.Configuration;
+
+namespace LibraryAuth
 {
     public class Bridge
     {

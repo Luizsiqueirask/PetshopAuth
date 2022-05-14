@@ -1,4 +1,5 @@
-﻿using LibraryAuth.Context.Animal;
+﻿using AnimalAuth.Models.AnimalAuth;
+using LibraryAuth.Context.Animal;
 using LibraryAuth.Models.AnimalAuth;
 
 using System.Collections.Generic;
@@ -13,16 +14,16 @@ namespace AnimalAuth.Casting
             classAuthPet = new ClassAuthPet();
         }
 
-        public IEnumerable<PetAuthLibrary> List()
+        public IEnumerable<PetAuth> List()
         {
-            var listPetLibrary = new List<PetAuthLibrary>();
-            var allPetLibrary = classAuthPet.List();
+            var listPet = new List<PetAuth>();
+            var allPet = classAuthPet.List();
 
-            if (allPetLibrary != null)
+            if (allPet != null)
             {
-                foreach (var pets in allPetLibrary)
+                foreach (var pets in allPet)
                 {
-                    listPetLibrary.Add(new PetAuthLibrary()
+                    listPet.Add(new PetAuth()
                     {
                         Id = pets.Id,
                         Name = pets.Name,
@@ -31,7 +32,7 @@ namespace AnimalAuth.Casting
                         Genre = pets.Genre,
                         Type = pets.Type,
                         PersonId = pets.PersonId,
-                        Image = new ImageAuthLibrary()
+                        Image = new ImageAuth()
                         {
                             Id = pets.Image.Id,
                             Tag = pets.Image.Tag,
@@ -39,17 +40,17 @@ namespace AnimalAuth.Casting
                         }
                     });
                 }
-                return listPetLibrary;
+                return listPet;
             }
-            return new List<PetAuthLibrary>();
+            return new List<PetAuth>();
         }
-        public PetAuthLibrary Get(int? Id)
+        public PetAuth Get(int? Id)
         {
             var pets = classAuthPet.Get(Id);
 
             if (pets != null)
             {
-                var petAuthLibrary = new PetAuthLibrary()
+                var petAuth = new PetAuth()
                 {
                     Id = pets.Id,
                     Name = pets.Name,
@@ -58,64 +59,64 @@ namespace AnimalAuth.Casting
                     Genre = pets.Genre,
                     Type = pets.Type,
                     PersonId = pets.PersonId,
-                    Image = new ImageAuthLibrary()
+                    Image = new ImageAuth()
                     {
                         Id = pets.Image.Id,
                         Tag = pets.Image.Tag,
                         Path = pets.Image.Path
                     }
                 };
-                return petAuthLibrary;
+                return petAuth;
             }
-            return new PetAuthLibrary();
+            return new PetAuth();
         }
-        public void Post(PetAuthLibrary petAuthLibrary)
+        public void Post(PetAuth petAuth)
         {
             var petLibrary = new PetAuthLibrary()
             {
-                Id = petAuthLibrary.Id,
-                Name = petAuthLibrary.Name,
-                Age = petAuthLibrary.Age,
-                Birthday = petAuthLibrary.Birthday,
-                Genre = petAuthLibrary.Genre,
-                Type = petAuthLibrary.Type,
-                PersonId = petAuthLibrary.PersonId,
+                Id = petAuth.Id,
+                Name = petAuth.Name,
+                Age = petAuth.Age,
+                Birthday = petAuth.Birthday,
+                Genre = petAuth.Genre,
+                Type = petAuth.Type,
+                PersonId = petAuth.PersonId,
                 Image = new ImageAuthLibrary()
                 {
-                    Id = petAuthLibrary.Image.Id,
-                    Tag = petAuthLibrary.Image.Tag,
-                    Path = petAuthLibrary.Image.Path
+                    Id = petAuth.Image.Id,
+                    Tag = petAuth.Image.Tag,
+                    Path = petAuth.Image.Path
                 },
                 Health = new HealthAuthLibrary()
                 {
-                    Id = petAuthLibrary.Health.Id,
-                    Status = petAuthLibrary.Health.Status
+                    Id = petAuth.Health.Id,
+                    Status = petAuth.Health.Status
                 }
             };
 
             classAuthPet.Post(petLibrary);
         }
-        public void Put(PetAuthLibrary petAuthLibrary, int? Id)
+        public void Put(PetAuth petAuth, int? Id)
         {
             var petLibrary = new PetAuthLibrary()
             {
-                Id = petAuthLibrary.Id,
-                Name = petAuthLibrary.Name,
-                Age = petAuthLibrary.Age,
-                Birthday = petAuthLibrary.Birthday,
-                Genre = petAuthLibrary.Genre,
-                Type = petAuthLibrary.Type,
-                PersonId = petAuthLibrary.PersonId,
+                Id = petAuth.Id,
+                Name = petAuth.Name,
+                Age = petAuth.Age,
+                Birthday = petAuth.Birthday,
+                Genre = petAuth.Genre,
+                Type = petAuth.Type,
+                PersonId = petAuth.PersonId,
                 Image = new ImageAuthLibrary()
                 {
-                    Id = petAuthLibrary.Image.Id,
-                    Tag = petAuthLibrary.Image.Tag,
-                    Path = petAuthLibrary.Image.Path
+                    Id = petAuth.Image.Id,
+                    Tag = petAuth.Image.Tag,
+                    Path = petAuth.Image.Path
                 },
                 Health = new HealthAuthLibrary()
                 {
-                    Id = petAuthLibrary.Health.Id,
-                    Status = petAuthLibrary.Health.Status
+                    Id = petAuth.Health.Id,
+                    Status = petAuth.Health.Status
                 }
             };
 

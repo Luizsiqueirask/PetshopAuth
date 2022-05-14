@@ -1,8 +1,8 @@
-using AnimalAuth.Areas.HelpPage.ModelDescriptions;
-using AnimalAuth.Areas.HelpPage.Models;
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
+using AnimalAuth.Areas.HelpPage.ModelDescriptions;
+using AnimalAuth.Areas.HelpPage.Models;
 
 namespace AnimalAuth.Areas.HelpPage.Controllers
 {
