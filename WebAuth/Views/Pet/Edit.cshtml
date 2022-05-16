@@ -1,14 +1,14 @@
-﻿@model WebAuth.Models.Animal.Pet
+﻿@model WebAuth.Models.Animal.PersonPet
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Pet Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm("Edit", "Pet", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="form-horizontal shadow p-3 mb-5 bg-body rounded-3">
-        <h4 class="text-center">Edit Pet</h4>
+        <h4 class="text-center">New Pet</h4>
         <div class="text-right">
             @Html.ActionLink("Back to List", "Index", new { area = "" }, new { @class = "btn btn-primary text-white mt-2 rounded-pill" })
         </div>
@@ -20,14 +20,14 @@
                     <div class="text-center pt-1">
                         <img src="https://cutewallpaper.org/24/funny-dog-png/download-funny-dog-face-cartoo-png-free-png-images-toppng.png" class="avatar rounded-circle img-thumbnail col-sm-6" alt="earth">
                         <h6>Upload a Pictures</h6>
-                        @Html.LabelFor(m => m.Image.Path, new { @class = "control-label" })
-                        @Html.TextBoxFor(m => m.Image.Path, new
+                        @Html.LabelFor(m => m.Pet.Image.Path, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Pet.Image.Path, new
                         {
                             type = "file",
                             accept = "image/jpeg, image/jpg, image/png",
                             htmlAttributes = new { @class = "form-control-file mt-2 rounded-pill text-center center-block file-upload" }
                         })
-                        @Html.ValidationMessageFor(m => m.Image.Path)
+                        @Html.ValidationMessageFor(m => m.Pet.Image.Path)
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -35,63 +35,66 @@
                         <div class="table-bordered active" id="home">
 
                             @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
                             <div class="container">
 
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    @Html.LabelFor(model => model.Pet.Name, htmlAttributes: new { @class = "control-label col-md-5 mt-2" })
                                     <div class="col-md-12">
-                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
-                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Pet.Name, new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
+                                        @Html.ValidationMessageFor(model => model.Pet.Name, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Genre, htmlAttributes: new { @class = "control-label col-md-3 mt-2" })
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.Genre, new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
-                                        @Html.ValidationMessageFor(model => model.Genre, "", new { @class = "text-danger" })
+                                <div class="row">
+                                    <div class="col-4">
+                                        @Html.LabelFor(model => model.Pet.Type, htmlAttributes: new { @class = "control-label col-md-4" })
+                                        <div class="form-group">
+                                            @Html.EditorFor(model => model.Pet.Type, new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
+                                            @Html.ValidationMessageFor(model => model.Pet.Type, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        @Html.LabelFor(model => model.Pet.Genre, htmlAttributes: new { @class = "control-label col-md-4" })
+                                        <div class="form-group">
+                                            @Html.EditorFor(model => model.Pet.Genre, new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
+                                            @Html.ValidationMessageFor(model => model.Pet.Genre, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-3">
-                                        @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-4 mt-2" })
+                                        @Html.LabelFor(model => model.Pet.Age, htmlAttributes: new { @class = "control-label col-md-4 mt-2" })
                                         <div class="col-md-12">
-                                            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
-                                            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.Pet.Age, new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
+                                            @Html.ValidationMessageFor(model => model.Pet.Age, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
 
                                     <div class="col-md-5">
-                                        @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-12 mt-2" })
+                                        @Html.LabelFor(model => model.Pet.Birthday, htmlAttributes: new { @class = "control-label col-md-12 mt-2" })
                                         <div class="col-md-12">
-                                            @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
-                                            @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.Pet.Birthday, new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
+                                            @Html.ValidationMessageFor(model => model.Pet.Birthday, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Health.Status, htmlAttributes: new { @class = "control-label mt-2 rounded-pill" })
+                                    @Html.LabelFor(model => model.Pet.Health.Status, htmlAttributes: new { @class = "control-label mt-2 rounded-pill" })
                                     <div class="col-md-12">
-                                        @Html.EditorFor(model => model.Health.Status, new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
-                                        @Html.ValidationMessageFor(model => model.Health.Status, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Service.Category, htmlAttributes: new { @class = "control-label mt-2 rounded-pill" })
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.Service.Category, new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
-                                        @Html.ValidationMessageFor(model => model.Service.Category, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Pet.Health.Status, new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
+                                        @Html.ValidationMessageFor(model => model.Pet.Health.Status, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
                                 <div class="col-md-5">
-                                    @Html.LabelFor(model => model.PersonId, htmlAttributes: new { @class = "control-label mt-2 rounded-pill" })
+                                    @Html.LabelFor(model => model.Pet.PersonId, htmlAttributes: new { @class = "control-label mt-2 rounded-pill" })
                                     <div class="col-md-12">
-                                        @Html.DropDownListFor(model => model.PersonId, Model.PersonPetsSelect, new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
-                                        @Html.ValidationMessageFor(model => model.PersonId, "", new { @class = "text-danger" })
+                                        @Html.DropDownListFor(model => model.Pet.PersonId, Model.PeopleSelect ?? new List<SelectListItem>(), " ", new { htmlAttributes = new { @class = "form-control mt-2 rounded-pill" } })
+                                        @Html.ValidationMessageFor(model => model.Pet.PersonId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
@@ -109,11 +112,6 @@
         </div>
     </div>
 }
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

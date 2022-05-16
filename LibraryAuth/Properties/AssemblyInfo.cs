@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AuthLibrary")]
+[assembly: AssemblyTitle("LibraryAuth")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AuthLibrary")]
+[assembly: AssemblyProduct("LibraryAuth")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4955f03f-597e-4c0d-adf9-2b3e1c06f05b")]
+[assembly: Guid("c29934b4-7e37-4acc-8056-079a53d8ec6d")]
 
 // Version information for an assembly consists of the following four values:
 //

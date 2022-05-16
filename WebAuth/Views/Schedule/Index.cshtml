@@ -1,45 +1,55 @@
-﻿@model IEnumerable<WebAuth.Models.Perfil.Schedule>
+﻿@model IEnumerable<WebAuth.Models.Perfil.PeopleSchedule>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Services)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Time)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PersonId)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Services)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Time)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PersonId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+@{
+    ViewBag.Title = "Schedule Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-</table>
+<div class="container-fluid">
+    <h3 class="text-center">All Schedules</h3>
+    <p class="p-2">
+        @Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "btn btn-md btn-gradient btn-success text-white shadow-md rounded-5" })
+    </p>
+    <hr />
+    @foreach (var item in Model)
+    {
+        <div class="">
+            <div class="card bg-gradient bg-opacity-50 m-4 shadow-lg rounded-5">
+                <div class="card-header shadow-sm bg-white">
+                    <h3 class="h3 text-center m-4">@Html.DisplayFor(model => item.People.FirstName)</h3>
+                    <hr />
+                    <div class="card-body">
+                        <br />
+                        <div>
+                            <h5 class="h-50 mb-2 text-center">Agendamento Petshop</h5>
+                            <div class="m-3">
+                                <div class="container">
+                                    <div class="">
+                                        <b>@Html.DisplayNameFor(model => model.Schedules.Services):</b>
+                                        @Html.DisplayFor(model => item.Schedules.Services)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Schedules.Date):</b>
+                                        @Html.DisplayFor(model => item.Schedules.Date)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Schedules.Time):</b>
+                                        @Html.DisplayFor(model => item.Schedules.Time)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Schedules.PersonId):</b>
+                                        @Html.DisplayFor(model => item.People.FirstName) @Html.DisplayFor(model => item.People.LastName)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded">
+                            <div class="card-footer bg-gradient bg-light text-center rounded-pill">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Schedules.Id }, new { @class = "btn btn-md btn-gradient btn-warning text-white rounded-pill" }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Schedules.Id }, new { @class = "btn btn-md btn-gradient btn-primary text-white rounded-pill" }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Schedules.Id }, new { @class = "btn btn-md btn-gradient btn-danger text-white rounded-pill" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

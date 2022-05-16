@@ -1,66 +1,65 @@
 ﻿@model WebAuth.Models.Animal.Pet
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Pet</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+@{
+    ViewBag.Title = "Pet Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+<div class="container-fluid">
+    <h3 class="text-center mb-5">Delete Pet</h3>
+    <div class="text-right">
+        @Html.ActionLink("Back to List", "Index", new { area = "" }, new { @class = "btn btn-primary text-white mt-2 rounded-pill" })
+    </div>
+    <div class="">
+        <div class="card bg-gradient bg-opacity-50 m-4 shadow-lg rounded-5">
+            <div class="card-header shadow-sm bg-white">
+                <h2 class="h3 text-center m-4">@Html.DisplayFor(model => model.Name)</h2>
+                <hr />
+                <div class="card-body">
+                    <br />
+                    <figure class="card-img align-items-center mb-3 container-sm figure-img rounded-circle">
+                        <img src="@Url.Content(Model.Image.Tag)" alt="@Html.DisplayFor(model => model.Image.Tag)" style="width: 360px; height: 270px;" class="img-thumbnail figure-img shadow-sm rounded-3 rounded-pill mb-5" />
+                    </figure>
+                    <div>
+                        <h5 class="h-50 mb-3 text-center">Animal de Estimação</h5>
+                        <div class="card-body row m-3">
+                            <div class="col-md-6">
+                                <div>
+                                    <p class="text-center text-capitalize mt-5"><strong>Info Pet</strong></p>
+                                    <b>@Html.DisplayNameFor(model => model.Name)</b>
+                                    @Html.DisplayFor(model => model.Name)
+                                    <br />
+                                    <b>@Html.DisplayNameFor(model => model.Type):</b>
+                                    @Html.DisplayFor(model => model.Type)
+                                    <br />
+                                    <b>@Html.DisplayNameFor(model => model.Genre):</b>
+                                    @Html.DisplayFor(model => model.Genre)
+                                    <br />
+                                    <b>@Html.DisplayNameFor(model => model.Age):</b>
+                                    @Html.DisplayFor(model => model.Age)
+                                    <br />
+                                    <b>@Html.DisplayNameFor(model => model.Birthday):</b>
+                                    @Html.DisplayFor(model => model.Birthday)
+                                    <br />
+                                    <b>@Html.DisplayNameFor(model => model.PersonId):</b>
+                                    @Html.DisplayFor(model => model.PersonId)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Genre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Birthday)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Birthday)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PersonId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PersonId)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+                            <div class="form-actions no-color">
+                                <input type="submit" value="Delete" class="form-control btn btn-md btn-gradient btn-danger text-white rounded-pill" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
-    }
+    </div>
 </div>
+

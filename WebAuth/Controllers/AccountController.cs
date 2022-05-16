@@ -5,7 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using WebAuth.Api;
 using WebAuth.Models;
+using WebAuth.Models.PerfilAuth;
 
 namespace WebAuth.Controllers
 {
@@ -14,9 +16,11 @@ namespace WebAuth.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        protected readonly ApiClient _clientPerson;
 
         public AccountController()
         {
+            _clientPerson = new ApiClient();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -148,11 +152,20 @@ namespace WebAuth.Controllers
         {
             if (ModelState.IsValid)
             {
+                var registerUser = new User()
+                {
+                    Username = model.Email,
+                    Password = BCrypt.Net.BCrypt.HashPassword(model.Password)
+                };
+
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // Save in User Database
+                    await _clientPerson.PostUser(registerUser);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

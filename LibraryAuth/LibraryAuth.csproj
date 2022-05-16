@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4955F03F-597E-4C0D-ADF9-2B3E1C06F05B}</ProjectGuid>
+    <ProjectGuid>{C29934B4-7E37-4ACC-8056-079A53D8EC6D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AuthLibrary</RootNamespace>
-    <AssemblyName>AuthLibrary</AssemblyName>
+    <RootNamespace>LibraryAuth</RootNamespace>
+    <AssemblyName>LibraryAuth</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -49,27 +52,29 @@
     <Compile Include="Context\Animal\ThrowAuthPet.cs" />
     <Compile Include="Context\Perfil\ClassAuthPerson.cs" />
     <Compile Include="Context\Perfil\InterfaceAuthPerson.cs" />
+    <Compile Include="Context\Perfil\ThrowAuthPerson.cs" />
     <Compile Include="Context\Schedule\ClassAuthSchedule.cs" />
     <Compile Include="Context\Schedule\InterfaceAuthSchedule.cs" />
     <Compile Include="Context\Schedule\ThrowAuthSchedule.cs" />
-    <Compile Include="Context\Perfil\ThrowAuthPerson.cs" />
     <Compile Include="Context\User\ClassAuthUser.cs" />
     <Compile Include="Context\User\InterfaceAuthUser.cs" />
     <Compile Include="Context\User\ThrowAuthUser.cs" />
     <Compile Include="Models\AnimalAuth\HealthAuthLibrary.cs" />
     <Compile Include="Models\AnimalAuth\ImageAuthLibrary.cs" />
     <Compile Include="Models\AnimalAuth\PetAuthLibrary.cs" />
-    <Compile Include="Models\PerfilAuth\ScheduleAuthLibrary.cs" />
     <Compile Include="Models\PerfilAuth\AddressAuthLibrary.cs" />
     <Compile Include="Models\PerfilAuth\ContactAuthLibrary.cs" />
     <Compile Include="Models\PerfilAuth\PersonAuthLibrary.cs" />
     <Compile Include="Models\PerfilAuth\PictureAuthLibrary.cs" />
+    <Compile Include="Models\PerfilAuth\ScheduleAuthLibrary.cs" />
     <Compile Include="Models\PerfilAuth\UserAuthLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Database\mssql_petshop.sql" />
     <Content Include="Database\mssql_petshop_auth.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

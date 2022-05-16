@@ -37,8 +37,8 @@ namespace LibraryAuth.Context.PerfilAuth.User
                             allUser.Add(new UserAuthLibrary()
                             {
                                 Id = (int)dataReader["Id"],
-                                Username = (string)dataReader["FirstName"],
-                                Password = (string)dataReader["LastName"]
+                                Username = (string)dataReader["Username"],
+                                Password = (string)dataReader["Password"]
                             });
                         }
                     }
@@ -68,8 +68,8 @@ namespace LibraryAuth.Context.PerfilAuth.User
                     userAuthLibrary = new UserAuthLibrary()
                     {
                         Id = (int)dataReader["Id"],
-                        Username = (string)dataReader["FirstName"],
-                        Password = (string)dataReader["LastName"]
+                        Username = (string)dataReader["Username"],
+                        Password = (string)dataReader["Password"]
                     };
                 }
                 _sqlConnection.Close();

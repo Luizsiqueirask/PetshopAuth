@@ -24,7 +24,7 @@ namespace WebAuth.Models.Animal
         public string Genre { get; set; }
         [Required(ErrorMessage = "Informe aniversário do seu Pet")]
         [DisplayName("Data de aniversário")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = @"{0:dd/MM/yyyy}", ApplyFormatInEditMode = true, HtmlEncode = true)]
         public DateTime Birthday { get; set; }
         public Image Image { get; set; }
@@ -42,6 +42,7 @@ namespace WebAuth.Models.Animal
         public Person Person { get; set; }
         public Pet Pet { get; set; }
         public SelectListItem PersonPetsSelect { get; set; }
+        public IEnumerable<SelectListItem> PeopleSelect { get; set; }
     }
     public class PeoplePets
     {

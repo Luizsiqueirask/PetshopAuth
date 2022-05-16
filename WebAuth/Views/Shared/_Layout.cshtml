@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>@ViewBag.Title - Petship</title>
+    <title>@ViewBag.Title - Petshop</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <!-- Fonts and Icons -->
@@ -15,11 +15,11 @@
 </head>
 <body>
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient bg-dark fixed-top" id="mainNav">
         <div class="container px-4">
             <a class="navbar-brand" href="#page-top">WEB</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            @Html.ActionLink("Petship", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("Petshop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav navbar-nav">
                     <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
@@ -27,15 +27,16 @@
                     <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Person", "Index", "Person", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Pet", "Index", "Pet", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Schedule", "Index", "Schedule", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
             </div>
+            @Html.Partial("_LoginPartial")
         </div>
     </nav>
     <!-- Header-->
-    <header class="container-fluid bg-gradient bg-success text-white">
+    <header class="container-fluid bg-success bg-gradient text-white">
         <div class="jumbotron pt-5 px-4 text-center">
-            <h1 class="fw-bolder">Welcome to Petshop</h1>
+            <h1 class="fw-bolder">Welcome to Petshop Auth</h1>
             <p class="lead pb-5">A functional Bootstrap 5 boilerplate for one page scrolling websites</p>
         </div>
     </header>
@@ -46,9 +47,9 @@
                 <div class="container-fluid col-lg-8">
                     <h2 class="h2 justify-content-center text-center mb-5 mt-5">Petshop</h2>
                     <p class="lead pb-5 text-center justify-content-xxl-center">Petship is a relationship of mutual affection between pet. It is a stronger form of interpet bond than an acquaintance or an association, such as a classmate, neighbor, or colleague.</p>
-                    <div class="body-content">
+                    <div class="body-content m-3 p-2">
                         <!--a href="~/App_Start/WebApiConfig.cs">~/App_Start/WebApiConfig.cs</a-->
-                        <div class="container m-3 p-2">
+                        <div class="container">
                             @RenderBody()
                         </div>
                     </div>
@@ -59,11 +60,11 @@
 
     <!-- Footer-->
     <footer class="py-5 bg-dark">
-        <div class="container px-4"><p class="m-0 text-center text-white">Developer by Luiz Siqueira -> Petship @DateTime.Now.Date.ToString("dd/MM/yyyy") - @DateTime.Now.Year - Copyright &copy; </p></div>
+        <div class="container px-4"><p class="m-0 text-center text-white">Developer by Luiz Siqueira -> Petshop @DateTime.Now.Date.ToString("dd/MM/yyyy") - @DateTime.Now.Year - Copyright &copy; </p></div>
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/scripts")
-    @Scripts.Render("~/bundles/Petship/js")
+    @Scripts.Render("~/bundles/Petshop/js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

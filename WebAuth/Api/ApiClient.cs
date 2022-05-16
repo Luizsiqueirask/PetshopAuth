@@ -13,20 +13,41 @@ namespace WebAuth.Api
     {
         public readonly HttpClient _clientAnimal;
         public readonly HttpClient _clientPerfil;
-        private readonly List<int> ports = new List<int>() { 51654, 51555, 44377, 44379 };
 
         public ApiClient()
         {
 
-            _clientPerfil = new HttpClient
+            try
             {
-                BaseAddress = new Uri($"http://localhost:{ports[0]}/")
-            };
+                var perfilApi = "";
+                var animalApi = "";
 
-            _clientAnimal = new HttpClient
+                var apiUrl = new List<string>() { perfilApi, animalApi };
+
+                _clientPerfil = new HttpClient
+                {
+                    BaseAddress = new Uri(apiUrl[0])
+                };
+
+                _clientAnimal = new HttpClient
+                {
+                    BaseAddress = new Uri(apiUrl[1])
+                };
+            }
+            catch
             {
-                BaseAddress = new Uri($"http://localhost:{ports[1]}/")
-            };
+                var ports = new List<int>() { 56444, 50584 };
+
+                _clientPerfil = new HttpClient
+                {
+                    BaseAddress = new Uri($"http://localhost:{ports[0]}/")
+                };
+
+                _clientAnimal = new HttpClient
+                {
+                    BaseAddress = new Uri($"http://localhost:{ports[1]}/")
+                };
+            }
 
             _clientPerfil.DefaultRequestHeaders.Accept.Clear();
             _clientAnimal.DefaultRequestHeaders.Accept.Clear();

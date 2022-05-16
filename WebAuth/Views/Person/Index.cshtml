@@ -1,33 +1,35 @@
 ﻿@model IEnumerable<WebAuth.Models.Perfil.Person>
 
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "Person Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h3 class="text-center p-5">All People</h3>
 
-<p class="p-5">
-    @Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "btn btn-md btn-gradient btn-success text-white shadow-md rounded-5" })
-</p>
-
-<div class="card shadow-lg rounded-5">
-
+<div class="container-fluid">
+    <h3 class="text-center p-5">All People</h3>
+    <p class="p-2">
+        @Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "btn btn-md btn-gradient btn-success text-white shadow-md rounded-5" })
+    </p>
+    <hr />
     @foreach (var item in Model)
     {
-        <div class="container-fluid">
-            <div class="card-body m-4 ">
+        <div class="col">
+            <div class="card bg-gradient bg-opacity-50 m-4 shadow-lg rounded-5">
                 <div class="card-header shadow-sm bg-white">
-                    <h3 class="h3 text-center m-4">@Html.DisplayFor(model => item.FirstName)</h3>
+                    <h3 class="h3 text-center m-4">@Html.DisplayFor(model => item.FirstName) @Html.DisplayFor(model => item.LastName)</h3>
                     <hr />
                     <div class="card-body">
                         <br />
-                        <figure class="card-img align-items-center mb-3 container-sm">
-                            <img src="@Url.Content(item.Picture.Tag)" alt="@Html.DisplayFor(model => item.Picture.Tag)" style="width: 360px; height: 270px;" class="img-thumbnail figure-img shadow-sm rounded-3 rounded-pill mb-5" />
-                        </figure>
                         <div>
-                            <h5 class="h-50 mb-3 text-center">Pessoa</h5>
+                            <h4 class="h-50 mb-2 text-center">Perfil</h4>
                             <div class="card-body row m-3">
                                 <div class="col-md-6">
-                                    <p>
+                                    <p class="text-center text-capitalize mt-5"><strong>Foto Pessoal</strong></p>
+                                    <figure class="card-img align-items-center mb-3 container-sm figure">
+                                        <img src="@Url.Content(item.Picture.Path)" alt="@Html.DisplayFor(model => item.Picture.Tag)" style="width: 150px; height: 150px; " class="img-thumbnail figure-img shadow-sm rounded-5 rounded-circle mb-2 ms-5" />
+                                    </figure>
+                                    <div class="card-body">
+                                        <p class="text-center text-capitalize"><strong>Info Pessoal</strong></p>
                                         <b>@Html.DisplayNameFor(model => model.FirstName)</b>
                                         @Html.DisplayFor(model => item.FirstName)
                                         <br />
@@ -39,21 +41,33 @@
                                         <br />
                                         <b>@Html.DisplayNameFor(model => model.Age):</b>
                                         @Html.DisplayFor(model => item.Age)
+                                        <br />
                                         <b>@Html.DisplayNameFor(model => model.Genre):</b>
                                         @Html.DisplayFor(model => item.Genre)
-                                    </p>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>
+                                    <div class="card-body">
+                                        <p class="text-center text-capitalize mt-4"><strong>Contatos</strong></p>
                                         <b>@Html.DisplayNameFor(model => model.Contact.Email):</b>
                                         @Html.DisplayFor(model => item.Contact.Email)
                                         <br />
                                         <b>@Html.DisplayNameFor(model => model.Contact.Mobile):</b>
                                         @Html.DisplayFor(model => item.Contact.Mobile)
                                         <br />
+                                        <p class="text-center text-capitalize mt-5"><strong>Endereço</strong></p>
                                         <b>@Html.DisplayNameFor(model => model.Address.Country):</b>
                                         @Html.DisplayFor(model => item.Address.Country)
-                                    </p>
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Address.States):</b>
+                                        @Html.DisplayFor(model => item.Address.States)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Address.City):</b>
+                                        @Html.DisplayFor(model => item.Address.City)
+                                        <br />
+                                        <b>@Html.DisplayNameFor(model => model.Address.Neighborhoods):</b>
+                                        @Html.DisplayFor(model => item.Address.Neighborhoods)
+                                    </div>
                                 </div>
                             </div>
                         </div>

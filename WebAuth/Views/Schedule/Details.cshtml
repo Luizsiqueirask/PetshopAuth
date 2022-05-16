@@ -1,44 +1,47 @@
-﻿@model WebAuth.Models.Perfil.Schedule
+﻿@model WebAuth.Models.Perfil.PersonSchedule
 
-<div>
-    <h4>Schedule</h4>
+@{
+    ViewBag.Title = "Schedule Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <h3 class="text-center">All Pets</h3>
+    <p class="p-2">
+        @Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "btn btn-md btn-gradient btn-success text-white shadow-md rounded-5" })
+    </p>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Services)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Services)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Time)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Time)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PersonId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PersonId)
-        </dd>
-
-    </dl>
+    <div class="">
+        <div class="card bg-gradient bg-opacity-50 m-4 shadow-lg rounded-5">
+            <div class="card-header shadow-sm bg-white">
+                <h2 class="h3 text-center m-4">@Html.DisplayFor(model => model.Schedule.Services)</h2>
+                <hr />
+                <div class="card-body">
+                    <div>
+                        <h5 class="h-50 mb-3 text-center">Agendamento Petshop</h5>
+                        <div class="card-body row m-3">
+                            <div class="col-md-6">
+                                <b>@Html.DisplayNameFor(model => model.Schedule.Services):</b>
+                                @Html.DisplayFor(model => model.Schedule.Services)
+                                <br />
+                                <b>@Html.DisplayNameFor(model => model.Schedule.Date):</b>
+                                @Html.DisplayFor(model => model.Schedule.Date)
+                                <br />
+                                <b>@Html.DisplayNameFor(model => model.Schedule.Time):</b>
+                                @Html.DisplayFor(model => model.Schedule.Time)
+                                <br />
+                                <b>@Html.DisplayNameFor(model => model.Person.FirstName):</b>
+                                @Html.DisplayFor(model => model.Person.FirstName) @Html.DisplayFor(model => model.Person.LastName)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded">
+                        <div class="card-footer bg-gradient bg-light text-center rounded-pill">
+                            @Html.ActionLink("Edit", "Edit", new { id = Model.Schedule.Id }, new { @class = "btn btn-md btn-gradient btn-warning text-white rounded-pill" }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = Model.Schedule.Id }, new { @class = "btn btn-md btn-gradient btn-danger text-white rounded-pill" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

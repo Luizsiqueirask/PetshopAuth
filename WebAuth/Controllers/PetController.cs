@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -11,8 +11,11 @@ using WebAuth.Models.Perfil;
 
 namespace WebAuth.Controllers
 {
+    [Authorize]
     public class PetController : Controller
     {
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
         private readonly ApiClient _clientPet;
         private readonly BlobClient _blobClient;
         internal readonly string directoryPath = @"../Storage/Pet/";
@@ -23,6 +26,35 @@ namespace WebAuth.Controllers
             _blobClient = new BlobClient();
         }
 
+        public PetController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         // GET: Pet
         public async Task<ActionResult> Index()
         {
@@ -33,10 +65,10 @@ namespace WebAuth.Controllers
             if (allPets.IsSuccessStatusCode)
             {
                 var pets = await allPets.Content.ReadAsAsync<IEnumerable<Pet>>();
-                var people = await allPeople.Content.ReadAsAsync<IEnumerable<Person>>();
 
                 if (allPeople.IsSuccessStatusCode)
                 {
+                    var people = await allPeople.Content.ReadAsAsync<IEnumerable<Person>>();
 
                     foreach (var pet in pets)
                     {
@@ -68,17 +100,17 @@ namespace WebAuth.Controllers
         // GET: Pet/Details/5
         public async Task<ActionResult> Details(int? Id)
         {
-            var allPets = await _clientPet.GetPetById(Id);
+            var pets = await _clientPet.GetPetById(Id);
             var personPet = new PersonPet();
 
-            if (allPets.IsSuccessStatusCode)
+            if (pets.IsSuccessStatusCode)
             {
-                var pet = await allPets.Content.ReadAsAsync<Pet>();
-                var allPeople = await _clientPet.GetPersonById(pet.PersonId);
+                var pet = await pets.Content.ReadAsAsync<Pet>();
+                var people = await _clientPet.GetPersonById(pet.PersonId);
 
-                if (allPeople.IsSuccessStatusCode)
+                if (people.IsSuccessStatusCode)
                 {
-                    var person = await allPeople.Content.ReadAsAsync<Person>();
+                    var person = await people.Content.ReadAsAsync<Person>();
 
                     if (pet.PersonId.Equals(person.Id))
                     {
@@ -161,6 +193,7 @@ namespace WebAuth.Controllers
                     var imageName = Path.GetFileName(httpFileCollection[0].FileName);
                     var rootPath = Server.MapPath(directoryPath);
                     var picturePath = Path.Combine(rootPath, imageName);
+                    var pathReal = directoryPath + imageName;
 
                     // Add picture reference to model and save
                     var PictureExt = Path.GetExtension(imageName);
@@ -168,7 +201,7 @@ namespace WebAuth.Controllers
                     if (PictureExt.Equals(".jpg") || PictureExt.Equals(".jpeg") || PictureExt.Equals(".png"))
                     {
                         pet.Image.Tag = imageName;
-                        pet.Image.Path = picturePath;
+                        pet.Image.Path = pathReal;
                         postedFileBase.SaveAs(picturePath);
                         await _clientPet.PostPet(pet);
 
@@ -183,6 +216,7 @@ namespace WebAuth.Controllers
         public async Task<ActionResult> Edit(int? Id)
         {
             var allPets = await _clientPet.GetPetById(Id);
+            var personPet = new PersonPet();
 
             if (allPets.IsSuccessStatusCode)
             {
@@ -193,20 +227,23 @@ namespace WebAuth.Controllers
                 {
                     var person = await allPeople.Content.ReadAsAsync<Person>();
 
-                    var personPet = new PersonPet()
+                    personPet = new PersonPet()
                     {
                         Pet = pet,
                         Person = person,
-                        PersonPetsSelect = new SelectListItem()
+                        PeopleSelect = new List<SelectListItem>()
                         {
-                            Value = pet.Id.ToString(),
-                            Text = pet.Name,
-                            Selected = pet.PersonId == person.Id
+                            new SelectListItem()
+                            {
+                                Value = person.Id.ToString(),
+                                Text = $"{person.FirstName} {person.LastName}",
+                                Selected = person.Id.Equals(pet.PersonId)
+                            }
                         }
                     };
 
-                    return View(personPet);
                 }
+                return View(personPet);
             }
             return View(new PersonPet());
         }
@@ -243,6 +280,7 @@ namespace WebAuth.Controllers
                     var imageName = Path.GetFileName(httpFileCollection[0].FileName);
                     var rootPath = Server.MapPath(directoryPath);
                     var picturePath = Path.Combine(rootPath, imageName);
+                    var pathReal = directoryPath + imageName;
 
                     // Add picture reference to model and save
                     var PictureExt = Path.GetExtension(imageName);
@@ -250,8 +288,7 @@ namespace WebAuth.Controllers
                     if (PictureExt.Equals(".jpg") || PictureExt.Equals(".jpeg") || PictureExt.Equals(".png"))
                     {
                         pet.Image.Tag = imageName;
-                        pet.Image.Path = picturePath;
-
+                        pet.Image.Path = pathReal;
                         postedFileBase.SaveAs(picturePath);
                         await _clientPet.PutPet(pet, Id);
 
@@ -280,22 +317,21 @@ namespace WebAuth.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(int Id)
         {
+            var pet = await _clientPet.DeletePet(Id);
+
             try
             {
                 // TODO: Add delete logic here
-                var pet = await _clientPet.DeletePet(Id);
-
                 if (pet.IsSuccessStatusCode)
                 {
                     await pet.Content.ReadAsAsync<Pet>();
-                    return View(pet);
                 }
+                return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            catch
             {
-                return View($"MSG: {ex.Message}");
+                return View(new Pet());
             }
-            return View(new Pet());
         }
     }
 }

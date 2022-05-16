@@ -11,12 +11,12 @@ namespace LibraryAuth
         {
             try
             {
-                PathConnection = WebConfigurationManager.ConnectionStrings["Petshop"].ConnectionString;
+                PathConnection = WebConfigurationManager.ConnectionStrings["PetshopAuth"].ConnectionString;
                 return PathConnection;
             }
             catch
             {
-                PathConnection = ConfigurationManager.ConnectionStrings["Petshop"].ConnectionString;
+                PathConnection = ConfigurationManager.ConnectionStrings["PetshopAuth"].ConnectionString;
                 return PathConnection;
             }
         }

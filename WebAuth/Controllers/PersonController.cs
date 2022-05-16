@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -10,8 +11,11 @@ using WebAuth.Models.Perfil;
 
 namespace WebAuth.Controllers
 {
+    [Authorize]
     public class PersonController : Controller
     {
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
         protected readonly ApiClient _clientPerson;
         protected readonly BlobClient _blobClient;
         protected readonly string directoryPath = @"../Storage/Person/";
@@ -20,6 +24,36 @@ namespace WebAuth.Controllers
         {
             _clientPerson = new ApiClient();
             _blobClient = new BlobClient();
+        }
+
+        public PersonController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
         }
 
         // GET: Person

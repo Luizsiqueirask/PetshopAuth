@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BB485155-1594-4861-845F-20FB91FA58DA}</ProjectGuid>
+    <ProjectGuid>{69CEB2F7-AA03-49BE-9557-B987E8A474D6}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -17,7 +17,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44373</IISExpressSSLPort>
+    <IISExpressSSLPort>44355</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -145,9 +145,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Casting\UserCastAuth.cs" />
-    <Compile Include="Casting\ScheduleCastAuth.cs" />
     <Compile Include="Casting\PersonCastAuth.cs" />
+    <Compile Include="Casting\ScheduleCastAuth.cs" />
+    <Compile Include="Casting\UserCastAuth.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
@@ -262,7 +262,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibraryAuth\LibraryAuth.csproj">
-      <Project>{4955f03f-597e-4c0d-adf9-2b3e1c06f05b}</Project>
+      <Project>{c29934b4-7e37-4acc-8056-079a53d8ec6d}</Project>
       <Name>LibraryAuth</Name>
     </ProjectReference>
   </ItemGroup>
@@ -282,9 +282,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>53539</DevelopmentServerPort>
+          <DevelopmentServerPort>56444</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53539/</IISUrl>
+          <IISUrl>https://localhost:44355/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

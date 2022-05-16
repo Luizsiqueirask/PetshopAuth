@@ -1,8 +1,8 @@
+using PerfilAuth.Areas.HelpPage.ModelDescriptions;
+using PerfilAuth.Areas.HelpPage.Models;
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using PerfilAuth.Areas.HelpPage.ModelDescriptions;
-using PerfilAuth.Areas.HelpPage.Models;
 
 namespace PerfilAuth.Areas.HelpPage.Controllers
 {

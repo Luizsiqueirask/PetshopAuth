@@ -1,12 +1,61 @@
 ﻿@model WebAuth.Models.Animal.PersonPet
 
-<div>
-    <h4>PersonPet</h4>
+@{
+    ViewBag.Title = "Pet Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h3 class="text-center">All Pets</h3>
+    <p class="p-2">
+        @Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "btn btn-md btn-gradient btn-success text-white shadow-md rounded-5" })
+    </p>
     <hr />
-    <dl class="dl-horizontal">
-    </dl>
+    <div class="">
+        <div class="card bg-gradient bg-opacity-50 m-4 shadow-lg rounded-5">
+            <div class="card-header shadow-sm bg-white">
+                <h2 class="h3 text-center m-4">@Html.DisplayFor(model => model.Pet.Name)</h2>
+                <hr />
+                <div class="card-body">
+                    <br />
+                    <figure class="card-img align-items-center mb-3 container-sm figure-img rounded-circle">
+                        <img src="@Url.Content(Model.Pet.Image.Tag)" alt="@Html.DisplayFor(model => model.Pet.Image.Tag)" style="width: 360px; height: 270px;" class="img-thumbnail figure-img shadow-sm rounded-3 rounded-pill mb-5" />
+                    </figure>
+                    <div>
+                        <h5 class="h-50 mb-3 text-center">Animal de Estimação</h5>
+                        <div class="card-body row m-3">
+                            <div class="col-md-6">
+                                <div>
+                                    <p class="text-center text-capitalize mt-5"><strong>Info Pet</strong></p>
+                                    <b>@Html.DisplayNameFor(model => model.Pet.Name)</b>
+                                    @Html.DisplayFor(model => model.Pet.Name)
+                                    <br />
+                                    <b>@Html.DisplayNameFor(model => model.Pet.Type):</b>
+                                    @Html.DisplayFor(model => model.Pet.Type)
+                                    <br />
+                                    <b>@Html.DisplayNameFor(model => model.Pet.Genre):</b>
+                                    @Html.DisplayFor(model => model.Pet.Genre)
+                                    <br />
+                                    <b>@Html.DisplayNameFor(model => model.Pet.Age):</b>
+                                    @Html.DisplayFor(model => model.Pet.Age)
+                                    <br />
+                                    <b>@Html.DisplayNameFor(model => model.Pet.Birthday):</b>
+                                    @Html.DisplayFor(model => model.Pet.Birthday)
+                                    <br />
+                                    <b>@Html.DisplayNameFor(model => model.Pet.PersonId):</b>
+                                    @Html.DisplayFor(model => model.Person.FirstName)  @Html.DisplayFor(model => model.Person.LastName)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded">
+                        <div class="card-footer bg-gradient bg-light text-center rounded-pill">
+                            @Html.ActionLink("Edit", "Edit", new { id = Model.Pet.Id }, new { @class = "btn btn-md btn-gradient btn-warning text-white rounded-pill" }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = Model.Pet.Id }, new { @class = "btn btn-md btn-gradient btn-danger text-white rounded-pill" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
