@@ -125,14 +125,16 @@ namespace WebAuth.Controllers
                     var pictureName = Path.GetFileName(httpFileCollection[0].FileName);
                     var rootPath = Server.MapPath(directoryPath);
                     var picturePath = Path.Combine(rootPath, pictureName);
+                    var pathReal = directoryPath + pictureName;
 
                     // Add picture reference to model and save
                     var PictureExt = Path.GetExtension(pictureName);
 
+
                     if (PictureExt.Equals(".jpg") || PictureExt.Equals(".jpeg") || PictureExt.Equals(".png"))
                     {
                         person.Picture.Tag = pictureName;
-                        person.Picture.Path = picturePath;
+                        person.Picture.Path = pathReal;
                         postedFileBase.SaveAs(picturePath);
                         await _clientPerson.PostPerson(person);
 
@@ -159,7 +161,7 @@ namespace WebAuth.Controllers
         // POST: Person/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Person person, int? Id)
+        public async Task<ActionResult> Edit(Person person, int Id)
         {
             HttpFileCollectionBase httpFileCollection = Request.Files;
             HttpPostedFileBase postedFileBase = httpFileCollection[0];
@@ -176,9 +178,8 @@ namespace WebAuth.Controllers
 
                     person.Picture.Tag = picturePathblob.Name.ToString();
                     person.Picture.Path = picturePathblob.Uri.AbsolutePath.ToString();
-
-                    // Thread.Sleep(1000);
                     await _clientPerson.PostPerson(person);
+
                     return RedirectToAction("Index");
                 }
             }
@@ -190,18 +191,18 @@ namespace WebAuth.Controllers
                     var pictureName = Path.GetFileName(httpFileCollection[0].FileName);
                     var rootPath = Server.MapPath(directoryPath);
                     var picturePath = Path.Combine(rootPath, pictureName);
+                    var pathReal = directoryPath + pictureName;
 
                     // Add picture reference to model and save
                     var PictureExt = Path.GetExtension(pictureName);
 
+
                     if (PictureExt.Equals(".jpg") || PictureExt.Equals(".jpeg") || PictureExt.Equals(".png"))
                     {
                         person.Picture.Tag = pictureName;
-                        person.Picture.Path = picturePath;
+                        person.Picture.Path = pathReal;
                         postedFileBase.SaveAs(picturePath);
-
-                        // Thread.Sleep(1000);
-                        await _clientPerson.PutPerson(person, Id);
+                        await _clientPerson.PostPerson(person);
 
                         return RedirectToAction("Index");
                     }

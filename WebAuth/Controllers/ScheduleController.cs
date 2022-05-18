@@ -159,12 +159,12 @@ namespace WebAuth.Controllers
         // POST: Schedule/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Schedule schedule)
+        public async Task<ActionResult> Create(Schedule schedule)
         {
             try
             {
                 // TODO: Add insert logic here
-                _ = _clientSchedule.PostSchedule(schedule);
+                await _clientSchedule.PostSchedule(schedule);
                 return RedirectToAction("Index");
             }
             catch

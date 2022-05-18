@@ -15,20 +15,21 @@ namespace WebAuth.Models.Perfil
 
         [Required(ErrorMessage = "Informe a data do agendamento")]
         [DisplayName("Data")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = @"{0:dd/MM/yyyy}", ApplyFormatInEditMode = true, HtmlEncode = true)]
         public DateTime Date { get; set; }
 
         [Required(ErrorMessage = "Informe a hora do agendamento")]
         [DisplayName("Hora")]
-        [DataType(DataType.Time)]
+        [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = @"{0:hh:mm}", ApplyFormatInEditMode = true, HtmlEncode = true)]
         public DateTime Time { get; set; }
-        [DisplayName("Dono do Pet")]
+        [DisplayName("Dono")]
         public int PersonId { get; set; }
         public SelectListItem PersonSelect { get; set; }
         public IEnumerable<SelectListItem> PeopleSelect { get; set; }
     }
+
     public class PersonSchedule
     {
         public Person Person { get; set; }

@@ -15,6 +15,14 @@ USE PetshopAuth;
 
 -------------------------- SELECT ------------------------
 
+-- Aspnet
+SELECT * FROM __MigrationHistory;
+SELECT * FROM AspNetRoles;
+SELECT * FROM AspNetUserLogins;
+SELECT * FROM AspNetUserRoles;
+SELECT * FROM AspNetUserClaims;
+SELECT * FROM AspNetUsers;
+
 -- Person
 SELECT * FROM Users;
 SELECT * FROM Person;
@@ -303,11 +311,9 @@ AS BEGIN
 		p1.Genre,
 		p1.Age,
 		p1.Birthday,
-		-- Users
-		u1.Username,
-		u1.[Password],
-		-- Address
-		p1.AddressId,
+		p1.PictureId,
+		p1.ContactId,
+		p1.AddressId,		
 		-- Pictures
 		p2.Id,
 		p2.[Tag],
@@ -315,7 +321,12 @@ AS BEGIN
 		-- Contacts
 		c2.Id,
 		c2.Email,
-		c2.Mobile	
+		c2.Mobile,
+		-- Address
+		a1.Country,
+		a1.States,
+		a1.City,
+		a1.Neighborhoods
 	FROM Person p1
 	-- Users
 	LEFT JOIN [dbo].[Users] u1
@@ -394,7 +405,7 @@ CREATE PROCEDURE [dbo].[PutPerson]
 	@Neighborhoods AS NVARCHAR(250),
 	@AddressId AS INT,
 	-- Users
-	@UserId AS INT,
+	--@UserId AS INT,
 	-- Person
 	@FirstName AS NVARCHAR(250),
 	@LastName AS NVARCHAR(250),
@@ -416,7 +427,7 @@ AS BEGIN
 	WHERE Id = @ContactId;
 
 	-- Addresses
-	UPDATE  [dbo].[Addresses] SET 
+	UPDATE [dbo].[Addresses] SET 
 		[Country] = @Country,
 		[States] = @States,
 		[City] = @City,
@@ -431,7 +442,7 @@ AS BEGIN
 		Genre = @Genre,
 		Birthday = Convert(DATE, @Birthday),
 		PictureId = @PictureId,
-		UserId = @UserId,
+		UserId = (SELECT u1.Id FROM [dbo].[Users] u1 WHERE u1.Id = @IdPerson),
 		AddressId = @AddressId, 
 		ContactId = @ContactId
 	WHERE Id = @IdPerson;
@@ -446,12 +457,14 @@ AS BEGIN
 	-- Users
 	LEFT JOIN [dbo].[Users] u1
 	ON p1.UserId = u1.Id
+	LEFT JOIN [dbo].[AspNetUsers] n1
+	ON n1.Email = u1.Username
 	-- Pictures
 	LEFT JOIN [dbo].[Pictures] p2
 	ON p1.PictureId = p2.Id
 	-- Contacts
-	LEFT JOIN [dbo].[Contacts] c2
-	ON p1.ContactId = c2.Id
+	LEFT JOIN [dbo].[Contacts] c1
+	ON p1.ContactId = c1.Id
 	-- Addresses
 	LEFT JOIN [dbo].[Addresses] a1
 	ON p1.AddressId = a1.Id

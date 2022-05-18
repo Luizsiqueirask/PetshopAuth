@@ -35,13 +35,7 @@ namespace PerfilAuth.Casting
                             Id = people.Picture.Id,
                             Tag = people.Picture.Tag,
                             Path = people.Picture.Path
-                        },
-                        User = new UserAuth()
-                        {
-                            Id = people.User.Id,
-                            Username = people.User.Username,
-                            Password = people.User.Password
-                        },
+                        },                      
                         Contact = new ContactAuth()
                         {
                             Id = people.Contact.Id,
@@ -82,12 +76,6 @@ namespace PerfilAuth.Casting
                         Tag = people.Picture.Tag,
                         Path = people.Picture.Path
                     },
-                    User = new UserAuth()
-                    {
-                        Id = people.User.Id,
-                        Username = people.User.Username,
-                        Password = people.User.Password
-                    },
                     Contact = new ContactAuth()
                     {
                         Id = people.Contact.Id,
@@ -125,12 +113,6 @@ namespace PerfilAuth.Casting
                         Tag = person.Picture.Tag,
                         Path = person.Picture.Path
                     },
-                    User = new UserAuthLibrary()
-                    {
-                        Id = person.User.Id,
-                        Username = person.User.Username,
-                        Password = person.User.Password
-                    },
                     Contact = new ContactAuthLibrary()
                     {
                         Id = person.Contact.Id,
@@ -167,12 +149,6 @@ namespace PerfilAuth.Casting
                         Id = person.Picture.Id,
                         Tag = person.Picture.Tag,
                         Path = person.Picture.Path
-                    },
-                    User = new UserAuthLibrary()
-                    {
-                        Id = person.User.Id,
-                        Username = person.User.Username,
-                        Password = person.User.Password
                     },
                     Contact = new ContactAuthLibrary()
                     {

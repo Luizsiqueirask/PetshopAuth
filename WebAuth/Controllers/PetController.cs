@@ -95,7 +95,7 @@ namespace WebAuth.Controllers
                     return View(containerPersonPet);
                 }
             }
-            return View(new List<Person>());
+            return View(new List<PeoplePets>());
         }
         // GET: Pet/Details/5
         public async Task<ActionResult> Details(int? Id)
@@ -153,7 +153,6 @@ namespace WebAuth.Controllers
                     };
                     selectPetsList.Add(selectPet);
                     pet.PeopleSelect = selectPetsList;
-                    //pet.PersonId = (int)Convert.ToUInt32(selectPet.Value.ToString());
                 }
                 return View(pet);
             }
@@ -167,7 +166,7 @@ namespace WebAuth.Controllers
         {
             HttpFileCollectionBase httpFileCollection = Request.Files;
             HttpPostedFileBase postedFileBase = httpFileCollection[0];
-
+            
             try
             {
                 if (ModelState.IsValid)
@@ -237,7 +236,7 @@ namespace WebAuth.Controllers
                             {
                                 Value = person.Id.ToString(),
                                 Text = $"{person.FirstName} {person.LastName}",
-                                Selected = person.Id.Equals(pet.PersonId)
+                                Selected = pet.PersonId.Equals(person.Id)
                             }
                         }
                     };

@@ -29,10 +29,9 @@ namespace WebAuth.Models.Animal
         public DateTime Birthday { get; set; }
         public Image Image { get; set; }
         public Health Health { get; set; }
-        //public Schedule Schedule { get; set; }
 
         [Required(ErrorMessage = "Informe o nome do dono do animal")]
-        [DisplayName("Dono do animal")]
+        [DisplayName("Dono")]
         public int PersonId { get; set; }
         public SelectListItem PersonSelect { get; set; }
         public IEnumerable<SelectListItem> PeopleSelect { get; set; }

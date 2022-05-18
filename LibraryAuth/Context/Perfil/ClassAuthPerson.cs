@@ -47,13 +47,7 @@ namespace LibraryAuth.Context.PerfilAuth
                                     Id = (int)dataReader["Id"],
                                     Tag = (string)dataReader["Tag"],
                                     Path = (string)dataReader["Path"]
-                                },
-                                User = new UserAuthLibrary()
-                                {
-                                    Id = (int)dataReader["Id"],
-                                    Username = (string)dataReader["Username"],
-                                    Password = (string)dataReader["Password"]
-                                },
+                                },                               
                                 Contact = new ContactAuthLibrary()
                                 {
                                     Id = (int)dataReader["Id"],
@@ -67,7 +61,7 @@ namespace LibraryAuth.Context.PerfilAuth
                                     States = (string)dataReader["States"],
                                     City = (string)dataReader["City"],
                                     Neighborhoods = (string)dataReader["Neighborhoods"]
-                                },
+                                }
                             };
 
                             allPerson.Add(personLibrary);
@@ -118,12 +112,6 @@ namespace LibraryAuth.Context.PerfilAuth
                             Tag = (string)dataReader["Tag"],
                             Path = (string)dataReader["Path"]
                         },
-                        User = new UserAuthLibrary()
-                        {
-                            Id = (int)dataReader["Id"],
-                            Username = (string)dataReader["Username"],
-                            Password = (string)dataReader["Password"]
-                        },
                         Contact = new ContactAuthLibrary()
                         {
                             Id = (int)dataReader["Id"],
@@ -163,8 +151,7 @@ namespace LibraryAuth.Context.PerfilAuth
                     command.Parameters.AddWithValue("@City", personLibrary.Address.City);
                     command.Parameters.AddWithValue("@Neighborhoods", personLibrary.Address.Neighborhoods);
                     // -- User
-                    command.Parameters.AddWithValue("@Username", personLibrary.User.Username);
-                    command.Parameters.AddWithValue("@Password", personLibrary.User.Password);
+                    //command.Parameters.AddWithValue("@UserId", personLibrary.User.Id);
                     // -- Person
                     command.Parameters.AddWithValue("@FirstName", personLibrary.FirstName);
                     command.Parameters.AddWithValue("@LastName", personLibrary.LastName);
@@ -172,7 +159,6 @@ namespace LibraryAuth.Context.PerfilAuth
                     command.Parameters.AddWithValue("@Birthday", personLibrary.Birthday);
                     command.Parameters.AddWithValue("@Genre", personLibrary.Genre);
                     command.Parameters.AddWithValue("@PictureId", personLibrary.Picture.Id);
-                    command.Parameters.AddWithValue("@UserId", personLibrary.User.Id);
                     command.Parameters.AddWithValue("@ContactId", personLibrary.Contact.Id);
                     command.Parameters.AddWithValue("@AddressId", personLibrary.Address.Id);
 
@@ -207,8 +193,7 @@ namespace LibraryAuth.Context.PerfilAuth
                 command.Parameters.AddWithValue("@City", personLibrary.Address.City);
                 command.Parameters.AddWithValue("@Neighborhoods", personLibrary.Address.Neighborhoods);
                 // -- User
-                command.Parameters.AddWithValue("@Username", personLibrary.User.Username);
-                command.Parameters.AddWithValue("@Password", personLibrary.User.Password);
+                //command.Parameters.AddWithValue("@UserId", personLibrary.User.Id);
                 // -- Person
                 command.Parameters.AddWithValue("@FirstName", personLibrary.FirstName);
                 command.Parameters.AddWithValue("@LastName", personLibrary.LastName);
@@ -216,7 +201,6 @@ namespace LibraryAuth.Context.PerfilAuth
                 command.Parameters.AddWithValue("@Birthday", personLibrary.Birthday);
                 command.Parameters.AddWithValue("@Genre", personLibrary.Genre);
                 command.Parameters.AddWithValue("@PictureId", personLibrary.Picture.Id);
-                command.Parameters.AddWithValue("@UserId", personLibrary.User.Id);
                 command.Parameters.AddWithValue("@ContactId", personLibrary.Contact.Id);
                 command.Parameters.AddWithValue("@AddressId", personLibrary.Address.Id);
 

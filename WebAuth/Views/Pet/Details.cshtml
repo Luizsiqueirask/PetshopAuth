@@ -18,35 +18,35 @@
                 <hr />
                 <div class="card-body">
                     <br />
-                    <figure class="card-img align-items-center mb-3 container-sm figure-img rounded-circle">
-                        <img src="@Url.Content(Model.Pet.Image.Tag)" alt="@Html.DisplayFor(model => model.Pet.Image.Tag)" style="width: 360px; height: 270px;" class="img-thumbnail figure-img shadow-sm rounded-3 rounded-pill mb-5" />
-                    </figure>
-                    <div>
-                        <h5 class="h-50 mb-3 text-center">Animal de Estimação</h5>
-                        <div class="card-body row m-3">
-                            <div class="col-md-6">
-                                <div>
-                                    <p class="text-center text-capitalize mt-5"><strong>Info Pet</strong></p>
-                                    <b>@Html.DisplayNameFor(model => model.Pet.Name)</b>
-                                    @Html.DisplayFor(model => model.Pet.Name)
-                                    <br />
-                                    <b>@Html.DisplayNameFor(model => model.Pet.Type):</b>
-                                    @Html.DisplayFor(model => model.Pet.Type)
-                                    <br />
-                                    <b>@Html.DisplayNameFor(model => model.Pet.Genre):</b>
-                                    @Html.DisplayFor(model => model.Pet.Genre)
-                                    <br />
-                                    <b>@Html.DisplayNameFor(model => model.Pet.Age):</b>
-                                    @Html.DisplayFor(model => model.Pet.Age)
-                                    <br />
-                                    <b>@Html.DisplayNameFor(model => model.Pet.Birthday):</b>
-                                    @Html.DisplayFor(model => model.Pet.Birthday)
-                                    <br />
-                                    <b>@Html.DisplayNameFor(model => model.Pet.PersonId):</b>
-                                    @Html.DisplayFor(model => model.Person.FirstName)  @Html.DisplayFor(model => model.Person.LastName)
-                                </div>
-                            </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="text-center text-capitalize mt-5 mb-3"><strong>Image</strong></p>
+
+                            <figure class="card-img align-items-center mb-3 container-sm figure-img rounded-circle">
+                                <img src="@Url.Content($"../{Model.Pet.Image.Path}")" alt="@Html.DisplayFor(model => model.Pet.Image.Tag)" style="width: 150px; height: 150px; " class="img-thumbnail figure-img shadow-sm rounded-5 rounded-circle mb-2 ms-5" />
+                            </figure>
                         </div>
+                        <div class="col-6">
+                            <p class="text-center text-capitalize mt-5"><strong>About</strong></p>
+                            <b>@Html.DisplayNameFor(model => model.Pet.Name)</b>
+                            @Html.DisplayFor(model => model.Pet.Name)
+                            <br />
+                            <b>@Html.DisplayNameFor(model => model.Pet.Type):</b>
+                            @Html.DisplayFor(model => model.Pet.Type)
+                            <br />
+                            <b>@Html.DisplayNameFor(model => model.Pet.Genre):</b>
+                            @Html.DisplayFor(model => model.Pet.Genre)
+                            <br />
+                            <b>@Html.DisplayNameFor(model => model.Pet.Age):</b>
+                            @Html.DisplayFor(model => model.Pet.Age)
+                            <br />
+                            <b>@Html.DisplayNameFor(model => model.Pet.Birthday):</b>
+                            @Html.DisplayFor(model => model.Pet.Birthday)
+                            <br />
+                            <b>@Html.DisplayNameFor(model => model.Pet.PersonId):</b>
+                            @Html.DisplayFor(model => model.Person.FirstName)  @Html.DisplayFor(model => model.Person.LastName)
+                        </div>
+                    </div>
                     </div>
                     <div class="rounded">
                         <div class="card-footer bg-gradient bg-light text-center rounded-pill">
