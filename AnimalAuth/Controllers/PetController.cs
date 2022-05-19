@@ -8,11 +8,11 @@ using System.Web.Http;
 
 namespace Animal.Controllers
 {
-    public class PetAuthController : ApiController
+    public class PetController : ApiController
     {
         private readonly PetAuthCast petAuthCast;
 
-        public PetAuthController()
+        public PetController()
         {
             petAuthCast = new PetAuthCast();
         }

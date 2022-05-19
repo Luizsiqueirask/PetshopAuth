@@ -39,7 +39,8 @@ namespace LibraryAuth.Context.PerfilAuth.Schedule
                                 Id = (int)dataReader["Id"],
                                 Services = (string)dataReader["Services"],
                                 Date = (DateTime)dataReader["Date"],
-                                Time = (DateTime)dataReader["Time"]
+                                Time = (DateTime)dataReader["Time"],
+                                PersonId = (int)dataReader["PersonId"],
                             });
                         }
                     }
@@ -71,7 +72,8 @@ namespace LibraryAuth.Context.PerfilAuth.Schedule
                         Id = (int)dataReader["Id"],
                         Services = (string)dataReader["Services"],
                         Date = (DateTime)dataReader["Date"],
-                        Time = (DateTime)dataReader["Time"]
+                        Time = (DateTime)dataReader["Time"],
+                        PersonId = (int)dataReader["PersonId"]
                     };
                 }
                 _sqlConnection.Close();
@@ -87,10 +89,10 @@ namespace LibraryAuth.Context.PerfilAuth.Schedule
                     command.CommandType = CommandType.StoredProcedure;
                     _sqlConnection.Open();
 
-                    command.Parameters.AddWithValue("@Id", scheduleLibrary.Id);
                     command.Parameters.AddWithValue("@Services", scheduleLibrary.Services);
                     command.Parameters.AddWithValue("@Date", scheduleLibrary.Date.ToString("d"));
                     command.Parameters.AddWithValue("@Time", scheduleLibrary.Time.ToString("t"));
+                    command.Parameters.AddWithValue("@PersonId", scheduleLibrary.PersonId);
 
                     int running = command.ExecuteNonQuery();
                     _sqlConnection.Close();
@@ -113,13 +115,13 @@ namespace LibraryAuth.Context.PerfilAuth.Schedule
                 command.Parameters.AddWithValue("@IdSchedule", Id);
                 _sqlConnection.Open();
 
-                // -- Picture
-                command.Parameters.AddWithValue("@Id", scheduleLibrary.Id);
+                // -- Schedule
                 command.Parameters.AddWithValue("@Services", scheduleLibrary.Services);
                 command.Parameters.AddWithValue("@Date", scheduleLibrary.Date.ToString("d"));
                 command.Parameters.AddWithValue("@Time", scheduleLibrary.Time.ToString("t"));
+                command.Parameters.AddWithValue("@PersonId", scheduleLibrary.PersonId);
 
-                var running = command.ExecuteNonQuery();
+                int running = command.ExecuteNonQuery();
                 _sqlConnection.Close();
             }
         }

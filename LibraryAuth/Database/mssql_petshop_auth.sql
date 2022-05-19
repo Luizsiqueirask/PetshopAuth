@@ -507,7 +507,8 @@ AS BEGIN
 		p1.[Type],
 		p1.[Age],
 		p1.[Birthday],
-		p1.[Genre]
+		p1.[Genre],
+		p1.[PersonId]
 	FROM Pet p1
 	-- Image
 	LEFT JOIN [dbo].[Images] i1

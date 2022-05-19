@@ -22,7 +22,7 @@ namespace WebAuth.Models.Perfil
         public string Genre { get; set; }
         [Required(ErrorMessage = "Informe aniversário")]
         [DisplayName("Data de aniversário")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = @"{0:dd/MM/yyyy}", ApplyFormatInEditMode = true, HtmlEncode = true)]
         public DateTime Birthday { get; set; }
         public Picture Picture { get; set; }
