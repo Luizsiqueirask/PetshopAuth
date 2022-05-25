@@ -16,15 +16,12 @@ namespace WebAuth.Api
 
         public ApiClient()
         {
-            var perfil = "http://perfilauth.azurewebsites.net";
-            var animal = "http://animalauth.azurewebsites.net";
-
             try
             {
-               var apiUrl = new Dictionary<int, string>()
+                var apiUrl = new List<string>()
                 {
-                    {0, ""},
-                    {1, ""},
+                    "http://api-perfilauth-azure.azurewebsites.net/",
+                    "http://api-animalauth-azure.azurewebsites.net/"
                 };
 
                 _clientPerfil = new HttpClient

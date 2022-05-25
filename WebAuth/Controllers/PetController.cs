@@ -14,11 +14,9 @@ namespace WebAuth.Controllers
     [Authorize]
     public class PetController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
-        private readonly ApiClient _clientPet;
-        private readonly BlobClient _blobClient;
-        internal readonly string directoryPath = @"../Storage/Pet/";
+        protected readonly ApiClient _clientPet;
+        protected readonly BlobClient _blobClient;
+        protected readonly string _directoryPath = @"../Storage/Pet/";
 
         public PetController()
         {
@@ -26,35 +24,6 @@ namespace WebAuth.Controllers
             _blobClient = new BlobClient();
         }
 
-        public PetController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
         // GET: Pet
         public async Task<ActionResult> Index()
         {
@@ -169,6 +138,13 @@ namespace WebAuth.Controllers
             
             try
             {
+                int fileCount = httpFileCollection.Count;
+
+                if (fileCount.Equals(0) || fileCount.Equals(null))
+                {
+                    return View(new Pet());
+                }
+
                 if (ModelState.IsValid)
                 {
                     await _blobClient.SetupCloudBlob();
@@ -178,7 +154,7 @@ namespace WebAuth.Controllers
                     await imagePathblob.UploadFromStreamAsync(httpFileCollection[0].InputStream);
 
                     pet.Image.Tag = imagePathblob.Name.ToString();
-                    pet.Image.Path = imagePathblob.Uri.AbsolutePath.ToString();
+                    pet.Image.Path = imagePathblob.Uri.ToString();
                     await _clientPet.PostPet(pet);
 
                     return RedirectToAction("Index");
@@ -190,9 +166,9 @@ namespace WebAuth.Controllers
                 {
                     // Create pictute on server
                     var imageName = Path.GetFileName(httpFileCollection[0].FileName);
-                    var rootPath = Server.MapPath(directoryPath);
+                    var rootPath = Server.MapPath(_directoryPath);
                     var picturePath = Path.Combine(rootPath, imageName);
-                    var pathReal = directoryPath + imageName;
+                    var pathReal = _directoryPath + imageName;
 
                     // Add picture reference to model and save
                     var PictureExt = Path.GetExtension(imageName);
@@ -214,6 +190,8 @@ namespace WebAuth.Controllers
         // GET: Pet/Edit/5
         public async Task<ActionResult> Edit(int? Id)
         {
+            // https://docs.microsoft.com/en-us/azure/app-service/quickstart-dotnetcore?tabs=netframework48&pivots=development-environment-vs
+            // 
             var allPets = await _clientPet.GetPetById(Id);
             var personPet = new PersonPet();
 
@@ -257,6 +235,13 @@ namespace WebAuth.Controllers
 
             try
             {
+                int fileCount = httpFileCollection.Count;
+
+                if (fileCount.Equals(0) || fileCount.Equals(null))
+                {
+                    return View(new Pet());
+                }
+
                 if (ModelState.IsValid)
                 {
                     await _blobClient.SetupCloudBlob();
@@ -266,7 +251,7 @@ namespace WebAuth.Controllers
                     await imagePathblob.UploadFromStreamAsync(httpFileCollection[0].InputStream);
 
                     pet.Image.Tag = imagePathblob.Name.ToString();
-                    pet.Image.Path = imagePathblob.Uri.AbsolutePath.ToString();
+                    pet.Image.Path = imagePathblob.Uri.ToString();
 
                     await _clientPet.PostPet(pet);
                 }
@@ -277,9 +262,9 @@ namespace WebAuth.Controllers
                 {
                     // Create pictute on server
                     var imageName = Path.GetFileName(httpFileCollection[0].FileName);
-                    var rootPath = Server.MapPath(directoryPath);
+                    var rootPath = Server.MapPath(_directoryPath);
                     var picturePath = Path.Combine(rootPath, imageName);
-                    var pathReal = directoryPath + imageName;
+                    var pathReal = _directoryPath + imageName;
 
                     // Add picture reference to model and save
                     var PictureExt = Path.GetExtension(imageName);

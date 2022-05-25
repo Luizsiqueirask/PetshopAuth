@@ -11,11 +11,12 @@ namespace WebAuth.Api
     {
         public CloudBlobClient _blobClient;
         public CloudBlobContainer _blobContainer;
-        private const string _blobContainerName = "Petshop";
+        public CloudBlockBlob _cloudBlockBlob;
+        private const string _blobContainerName = @"blobstorage";
 
         public async Task SetupCloudBlob()
         {
-            var connectionString = CloudConfigurationManager.GetSetting("StorageConnectionString");
+            var connectionString = CloudConfigurationManager.GetSetting("petshopauthblob");
             var storageAccount = CloudStorageAccount.Parse(connectionString);
 
             _blobClient = storageAccount.CreateCloudBlobClient();
@@ -36,5 +37,27 @@ namespace WebAuth.Api
             string ext = Path.GetExtension(filename);
             return string.Format("{0:10}_{1}{2}", DateTime.Now.Ticks, Guid.NewGuid(), ext);
         }
+
+        public async Task ReadCloudBlob(string _ImagePathBlob)
+        {
+
+            var connectionString = CloudConfigurationManager.GetSetting("petshopauthblob");
+            var storageAccount = CloudStorageAccount.Parse(connectionString);
+            _blobClient = storageAccount.CreateCloudBlobClient();
+
+            _blobContainer = _blobClient.GetContainerReference(_blobContainerName);
+            _cloudBlockBlob = _blobContainer.GetBlockBlobReference(_ImagePathBlob);
+
+            await _blobContainer.ExistsAsync();
+
+            var permissions = new BlobContainerPermissions
+            {
+                PublicAccess = BlobContainerPublicAccessType.Blob
+            };
+
+            await _blobContainer.SetPermissionsAsync(permissions);
+
+        }
+
     }
 }

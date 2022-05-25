@@ -8,52 +8,21 @@ using System.Web;
 using System.Web.Mvc;
 using WebAuth.Api;
 using WebAuth.Models.Perfil;
+using System.Linq;
 
 namespace WebAuth.Controllers
 {
     [Authorize]
     public class PersonController : Controller
-    {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+    {       
         protected readonly ApiClient _clientPerson;
         protected readonly BlobClient _blobClient;
-        protected readonly string directoryPath = @"../Storage/Person/";
+        protected readonly string _directoryPath = @"../Storage/Person/";
 
         public PersonController()
         {
             _clientPerson = new ApiClient();
             _blobClient = new BlobClient();
-        }
-
-        public PersonController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
         }
 
         // GET: Person
@@ -98,10 +67,17 @@ namespace WebAuth.Controllers
             // https://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/
 
             HttpFileCollectionBase httpFileCollection = Request.Files;
-            HttpPostedFileBase postedFileBase = httpFileCollection[0];
+            HttpPostedFileBase postedFileBase = httpFileCollection[0];            
 
             try
             {
+                int fileCount = httpFileCollection.Count;
+
+                if (fileCount.Equals(0) || fileCount.Equals(null))
+                {
+                    return View(new Person());
+                }
+
                 if (ModelState.IsValid)
                 {
                     await _blobClient.SetupCloudBlob();
@@ -111,7 +87,7 @@ namespace WebAuth.Controllers
                     await picturePathblob.UploadFromStreamAsync(httpFileCollection[0].InputStream);
 
                     person.Picture.Tag = picturePathblob.Name.ToString();
-                    person.Picture.Path = picturePathblob.Uri.AbsolutePath.ToString();
+                    person.Picture.Path = picturePathblob.Uri.ToString();
                     await _clientPerson.PostPerson(person);
 
                     return RedirectToAction("Index");
@@ -123,9 +99,9 @@ namespace WebAuth.Controllers
                 {
                     // Create pictute on server
                     var pictureName = Path.GetFileName(httpFileCollection[0].FileName);
-                    var rootPath = Server.MapPath(directoryPath);
+                    var rootPath = Server.MapPath(_directoryPath);
                     var picturePath = Path.Combine(rootPath, pictureName);
-                    var pathReal = directoryPath + pictureName;
+                    var pathReal = _directoryPath + pictureName;
 
                     // Add picture reference to model and save
                     var PictureExt = Path.GetExtension(pictureName);
@@ -142,6 +118,7 @@ namespace WebAuth.Controllers
                     }
                 }
             }
+            
             return View(new Person());
         }
 
@@ -170,6 +147,13 @@ namespace WebAuth.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    int fileCount = httpFileCollection.Count;
+
+                    if (fileCount.Equals(0) || fileCount.Equals(null))
+                    {
+                        return View(new Person());
+                    }
+
                     await _blobClient.SetupCloudBlob();
 
                     var pictureNameBlob = _blobClient.GetRandomBlobName(httpFileCollection[0].FileName);
@@ -177,7 +161,7 @@ namespace WebAuth.Controllers
                     await picturePathblob.UploadFromStreamAsync(httpFileCollection[0].InputStream);
 
                     person.Picture.Tag = picturePathblob.Name.ToString();
-                    person.Picture.Path = picturePathblob.Uri.AbsolutePath.ToString();
+                    person.Picture.Path = picturePathblob.Uri.ToString();
                     await _clientPerson.PostPerson(person);
 
                     return RedirectToAction("Index");
@@ -189,9 +173,9 @@ namespace WebAuth.Controllers
                 {
                     // Create pictute on server
                     var pictureName = Path.GetFileName(httpFileCollection[0].FileName);
-                    var rootPath = Server.MapPath(directoryPath);
+                    var rootPath = Server.MapPath(_directoryPath);
                     var picturePath = Path.Combine(rootPath, pictureName);
-                    var pathReal = directoryPath + pictureName;
+                    var pathReal = _directoryPath + pictureName;
 
                     // Add picture reference to model and save
                     var PictureExt = Path.GetExtension(pictureName);

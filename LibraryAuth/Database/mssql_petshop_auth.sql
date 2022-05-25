@@ -1,11 +1,14 @@
 -- Create database
 CREATE DATABASE PetshopAuth;
+CREATE DATABASE petshopaauth;
 
 -- Drop database
 DROP DATABASE PetshopAuth;
+DROP DATABASE petshopaauth;
 
 -- Use Database
 USE PetshopAuth;
+USE petshopaauth;
 
 
 ----------------------------------------------------------
@@ -38,18 +41,64 @@ SELECT * FROM Health;
 
 ------------------------------ DROP ------------------------
 
+-- Aspnet
+DROP TABLE __MigrationHistory;
+DROP TABLE AspNetRoles;
+DROP TABLE AspNetUserLogins;
+DROP TABLE AspNetUserRoles;
+DROP TABLE AspNetUserClaims;
+DROP TABLE AspNetUsers;
+
 -- Person
-DROP TABLE Users;
 DROP TABLE Person;
-DROP TABLE Pictures;
+DROP TABLE Users;
 DROP TABLE Contacts;
 DROP TABLE Addresses;
 DROP TABLE Schedules;
+DROP TABLE Pictures;
 
 -- Pet
 DROP TABLE Pet;
 DROP TABLE Images;
 DROP TABLE Health;
+
+--------------------- DROP PROCEDURE ---------------------
+
+/* ********************* User ********************* */
+
+DROP PROCEDURE [dbo].[ListUser]
+DROP PROCEDURE [dbo].[GetUser]
+DROP PROCEDURE [dbo].[PostUser]
+DROP PROCEDURE [dbo].[PutUser]
+DROP PROCEDURE [dbo].[DeleteUser]
+
+/* ********************* Person ********************* */
+
+DROP PROCEDURE [dbo].[ListPerson]
+DROP PROCEDURE [dbo].[GetPerson]
+DROP PROCEDURE [dbo].[PostPerson]
+DROP PROCEDURE [dbo].[PutPerson]
+DROP PROCEDURE [dbo].[DeletePerson]
+
+/* ******************** Schedule ******************** */
+
+DROP PROCEDURE [dbo].[ListSchedule]
+DROP PROCEDURE [dbo].[GetSchedule]
+DROP PROCEDURE [dbo].[PostSchedule]
+DROP PROCEDURE [dbo].[PutSchedule]
+DROP PROCEDURE [dbo].[DeleteSchedule]
+
+/* ********************** Pet *********************** */
+
+DROP PROCEDURE [dbo].[ListPet]
+DROP PROCEDURE [dbo].[GetPet]
+DROP PROCEDURE [dbo].[PostPet]
+DROP PROCEDURE [dbo].[PutPet]
+DROP PROCEDURE [dbo].[DeletePet]
+
+----------------------------------------------------------
+					/* Create Tables */
+----------------------------------------------------------
 
 ------------------------- Person -------------------------
 
@@ -472,6 +521,70 @@ AS BEGIN
 END
 GO
 
+/* ********************* Schedules ********************* */
+
+/* List */
+CREATE PROCEDURE [dbo].[ListSchedule]
+AS BEGIN
+	SELECT * FROM [dbo].[Schedules] s1;
+END
+GO
+
+/* Detail */
+CREATE PROCEDURE [dbo].[GetSchedule]
+	@IdSchedule AS INT
+AS BEGIN
+	SELECT
+		s1.Id,
+		s1.[Services],
+		s1.[Date],
+		s1.[Time],
+		s1.[PersonId]
+	FROM [dbo].[Schedules] s1
+	WHERE s1.Id = @IdSchedule
+END
+GO
+
+/* Create */
+CREATE PROCEDURE [dbo].[PostSchedule]	
+	-- Users
+	@Services AS NVARCHAR(250),
+	@Date AS DATE,
+	@Time TIME,
+	@PersonId AS INT
+AS BEGIN
+	-- Schedules
+	INSERT INTO [dbo].[Schedules]([Services], [Date], [Time], [PersonId]) 
+	VALUES (@Services, Convert(DATE, @Date), @Time, @PersonId);
+END
+GO
+
+/* Update */
+CREATE PROCEDURE [dbo].[PutSchedule]
+	@IdSchedule AS INT,
+	@Services AS NVARCHAR(250),
+	@Date AS DATE,
+	@Time TIME,
+	@PersonId AS INT
+AS BEGIN
+	-- Schedules
+	UPDATE  [dbo].[Schedules] SET 
+		[Services] = @Services,
+		[Date] = @Date,
+		[Time] = @Time,
+		[PersonId] = @PersonId
+	WHERE Id = @IdSchedule;	
+END
+GO
+
+/* Delete */
+CREATE PROCEDURE [dbo].[DeleteSchedule]
+	@IdSchedule AS INT
+AS BEGIN 
+	DELETE s1 FROM [dbo].[Schedules] s1
+	WHERE s1.Id = @IdSchedule
+END
+GO
 
 /* ********************* Pet ********************* */
 
@@ -614,71 +727,6 @@ AS BEGIN
 END
 GO
 
-
-/* ********************* Schedules ********************* */
-
-/* List */
-CREATE PROCEDURE [dbo].[ListSchedule]
-AS BEGIN
-	SELECT * FROM [dbo].[Schedules] s1;
-END
-GO
-
-/* Detail */
-CREATE PROCEDURE [dbo].[GetSchedule]
-	@IdSchedule AS INT
-AS BEGIN
-	SELECT
-		s1.Id,
-		s1.[Services],
-		s1.[Date],
-		s1.[Time],
-		s1.[PersonId]
-	FROM [dbo].[Schedules] s1
-	WHERE s1.Id = @IdSchedule
-END
-GO
-
-/* Create */
-CREATE PROCEDURE [dbo].[PostSchedule]	
-	-- Users
-	@Services AS NVARCHAR(250),
-	@Date AS DATE,
-	@Time TIME,
-	@PersonId AS INT
-AS BEGIN
-	-- Schedules
-	INSERT INTO [dbo].[Schedules]([Services], [Date], [Time], [PersonId]) 
-	VALUES (@Services, Convert(DATE, @Date), @Time, @PersonId);
-END
-GO
-
-/* Update */
-CREATE PROCEDURE [dbo].[PutSchedule]
-	@IdSchedule AS INT,
-	@Services AS NVARCHAR(250),
-	@Date AS DATE,
-	@Time TIME,
-	@PersonId AS INT
-AS BEGIN
-	-- Schedules
-	UPDATE  [dbo].[Schedules] SET 
-		[Services] = @Services,
-		[Date] = @Date,
-		[Time] = @Time,
-		[PersonId] = @PersonId
-	WHERE Id = @IdSchedule;	
-END
-GO
-
-/* Delete */
-CREATE PROCEDURE [dbo].[DeleteSchedule]
-	@IdSchedule AS INT
-AS BEGIN 
-	DELETE s1 FROM [dbo].[Schedules] s1
-	WHERE s1.Id = @IdSchedule
-END
-GO
 
 /* ********************* User ********************* */
 
